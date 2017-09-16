@@ -4,7 +4,6 @@ import com.inadev.ekyc.api.request.LoginRequest;
 import com.inadev.ekyc.api.response.LoginResponse;
 
 import retrofit2.http.Body;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -15,6 +14,5 @@ import rx.Observable;
 public interface ApiInterface {
 
     @POST(APIConstants.PATH_LOGIN)
-    @Headers({APIConstants.HEADER_CONTENT_TYPE})
     Observable<LoginResponse> authenticateUser(@Body LoginRequest loginRequest);
 }
