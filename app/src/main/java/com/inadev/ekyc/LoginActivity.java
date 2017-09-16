@@ -1,9 +1,20 @@
 package com.inadev.ekyc;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import com.inadev.ekyc.api.ApiClient;
+import com.inadev.ekyc.api.ApiInterface;
+import com.inadev.ekyc.api.request.LoginRequest;
+import com.inadev.ekyc.api.response.LoginResponse;
+
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by OPTLPTP163 on 9/16/2017.

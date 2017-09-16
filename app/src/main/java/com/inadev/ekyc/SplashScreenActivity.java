@@ -1,12 +1,9 @@
 package com.inadev.ekyc;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -14,14 +11,17 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-
-
     }
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
-        startActivity(new Intent(this, TransactionPopupActivity.class));
-    }*/
+        (new Handler()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                finish();
+            }
+        }, 3000);
+    }
 }
