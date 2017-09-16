@@ -1,9 +1,11 @@
 package com.inadev.ekyc.api;
 
-import com.inadev.ekyc.api.request.LoginRequest;
 import com.inadev.ekyc.api.response.LoginResponse;
 
-import retrofit2.http.Body;
+import java.util.Map;
+
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -13,6 +15,7 @@ import rx.Observable;
 
 public interface ApiInterface {
 
+    @FormUrlEncoded
     @POST(APIConstants.PATH_LOGIN)
-    Observable<LoginResponse> authenticateUser(@Body LoginRequest loginRequest);
+    Observable<LoginResponse> authenticateUser(@FieldMap Map<String,String> map);
 }
