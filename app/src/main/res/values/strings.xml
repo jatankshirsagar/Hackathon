@@ -10,12 +10,12 @@
     <string name="login_msg">Trying to sign in from another computer?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="report">Report a Illegitimate Transaction</string>
+    <string name="report">Click To Report a Illegitimate Transaction</string>
     <string name="transaction_alert">Transaction Alert !</string>
     <string name="user_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="scan_fingerprint">Authenticate using Fingerprint sensor of device</string>
+    <string name="scan_fingerprint"><![CDATA[<b><font color=#FF0000></br></br>Use Fingerprint to validate the transaction.</font></b>]]></string>
 
     <!--Login-->
     <string name="email">Email Id</string>
