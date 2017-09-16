@@ -11,5 +11,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="report">Report a Illegitimate Transaction</string>
+    <string name="transaction_alert">Transaction Alert !</string>
 
 </resources>
