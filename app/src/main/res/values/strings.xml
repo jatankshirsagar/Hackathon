@@ -12,5 +12,15 @@
     <string name="no">No</string>
     <string name="report">Report a Illegitimate Transaction</string>
     <string name="transaction_alert">Transaction Alert !</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="scan_fingerprint">Authenticate using Fingerprint sensor of device</string>
+
+    <!--Login-->
+    <string name="email">Email Id</string>
+    <string name="passowrd">Password</string>
+    <string name="submit">SUBMIT</string>
+    <string name="back">BACK</string>
 
 </resources>

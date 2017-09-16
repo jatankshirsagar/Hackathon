@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32999998"
+        app:layout_constraintVertical_bias="0.3"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -57,18 +57,14 @@
         android:id="@+id/btn_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="0dp"
         android:background="@drawable/rounded_white_corner"
         android:text="@string/no"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_message"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_yes"
@@ -78,11 +74,29 @@
         android:text="@string/yes"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/btn_no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toEndOf="@+id/btn_no"
         app:layout_constraintTop_toTopOf="@+id/btn_no" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_scan_finger"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/scan_fingerprint"
+        android:textColor="@color/textPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_title"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.95"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_message"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/btn_report"
