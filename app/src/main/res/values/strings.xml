@@ -10,5 +10,6 @@
     <string name="login_msg">Trying to sign in from another computer?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="report">Report a Illegitimate Transaction</string>
 
 </resources>

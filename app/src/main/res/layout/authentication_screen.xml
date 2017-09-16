@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/backgroundColor"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_msg"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,10 +40,11 @@
         android:id="@+id/btn_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
         android:background="@drawable/rounded_white_corner"
         android:text="@string/no"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,5 +52,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
         app:layout_constraintVertical_bias="0.13999999" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_white_corner"
+        android:text="@string/yes"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toEndOf="@+id/btn_no"
+        app:layout_constraintTop_toTopOf="@+id/btn_no" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/btn_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/report"
+        android:textColor="@color/textPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_yes"
+        app:layout_constraintStart_toStartOf="@+id/btn_no"
+        app:layout_constraintTop_toBottomOf="@+id/btn_yes"
+        app:layout_constraintVertical_bias="0.18" />
 
 </android.support.constraint.ConstraintLayout>
