@@ -20,6 +20,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                /*Intent intent = new Intent(SplashScreenActivity.this, TransactionPopupActivity.class);
+                intent.putExtra("title","title");
+                intent.putExtra("body","body" +
+                        "");
+                startActivity(intent);*/
                 finish();
             }
         }, 3000);

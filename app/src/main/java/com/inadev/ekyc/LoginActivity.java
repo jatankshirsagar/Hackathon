@@ -20,10 +20,6 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by OPTLPTP163 on 9/16/2017.
- */
-
 public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.login_emailid)
@@ -37,6 +33,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Utils.showLog(":::> "+ FirebaseInstanceId.getInstance().getToken());
     }
 
 

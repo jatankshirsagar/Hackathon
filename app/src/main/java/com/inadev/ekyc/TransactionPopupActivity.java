@@ -1,8 +1,6 @@
 package com.inadev.ekyc;
 
 
-import android.app.KeyguardManager;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,13 +28,11 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+@SuppressWarnings("unused")
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class TransactionPopupActivity extends BaseActivity {
+public class TransactionPopupActivity extends BaseActivity implements FingerPrintHelper.OnFingerPrintListener {
 
     private StringBuilder bodymessage = new StringBuilder();
-
-    private KeyguardManager keyguardManager;
-    private FingerprintManager fingerprintManager;
 
     @BindView(R.id.iv_finger_print)
     AppCompatImageView ivFingerPrintImage;
@@ -65,41 +61,13 @@ public class TransactionPopupActivity extends BaseActivity {
         updateTransactionStatus("yes");
     }
 
-    private void updateTransactionStatus(String response) {
-        Map<String,String> transactionRequest = new HashMap<>();
-        transactionRequest.put("response",response);
-
-
-        showProgress(this);
-        ApiInterface apiInterface = ApiClient.getAppServiceClient().create(ApiInterface.class);
-
-        apiInterface.updateTransactionStatus(transactionRequest)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponse>() {
-                    @Override
-                    public void onCompleted() {
-                        dissmissProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        dissmissProgressDialog();
-                        Toast.makeText(TransactionPopupActivity.this,""+e,Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onNext(BaseResponse loginResponse) {
-                        if(loginResponse!=null)
-                        {
-                            Toast.makeText(TransactionPopupActivity.this,loginResponse.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
-
     @OnClick(R.id.btn_no)
     public void OnNoClicked(View view) {
+        updateTransactionStatus("no");
+    }
+
+    @OnClick(R.id.btnCancel)
+    public void OnCancelClicked(View view) {
         updateTransactionStatus("no");
     }
 
@@ -119,56 +87,61 @@ public class TransactionPopupActivity extends BaseActivity {
             title.setText(getIntent().getStringExtra("title"));
             bodymessage.append(getIntent().getStringExtra("body"));
         }
-        // Keyguard Manager
-        KeyguardManager keyguardManager = (KeyguardManager)
-                getSystemService(KEYGUARD_SERVICE);
 
-        // Fingerprint Manager
-        fingerprintManager = (FingerprintManager)
-                getSystemService(FINGERPRINT_SERVICE);
-
-        if (!checkFinger()) {
+        if (!FingerPrintHelper.getInstance().checkFinger(this)) {
             ivFingerPrintImage.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
             btnYes.setVisibility(View.VISIBLE);
             btnNo.setVisibility(View.VISIBLE);
         } else {
-            bodymessage.append("\n\n");
+            FingerPrintHelper.getInstance().initFingerprintAuthentication(this);
+            bodymessage.append("</br></br>");
             bodymessage.append(getString(R.string.scan_fingerprint));
         }
+        FingerPrintHelper.getInstance().setOnFingerPrintListener(this);
         message.setText(Html.fromHtml(bodymessage.toString()));
         Linkify.addLinks(tv_report, Linkify.ALL);
     }
 
-    private boolean checkFinger() {
-        Utils.showLog("check Finger");
-        // Keyguard Manager
-        KeyguardManager keyguardManager = (KeyguardManager)
-                getSystemService(KEYGUARD_SERVICE);
+    @Override
+    public void onFingerPrintAuthenticated() {
+        finish();
+    }
 
-        // Fingerprint Manager
-        fingerprintManager = (FingerprintManager)
-                getSystemService(FINGERPRINT_SERVICE);
+    @Override
+    public void onFingerPrintNotAuthenticated() {
+        Toast.makeText(this, "Finger print Authentication Failed", Toast.LENGTH_SHORT).show();
+    }
 
-        try {
-            // Check if the fingerprint sensor is present
-            if (!fingerprintManager.isHardwareDetected()) {
-                Utils.showLog("::::> " + message);
-                return false;
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                Utils.showLog("::::> " + message);
-                return false;
-            } else if (!keyguardManager.isKeyguardSecure()) {
-                Utils.showLog("::::> " + message);
-                return false;
-            } else {
-                return true;
-            }
+    private void updateTransactionStatus(String response) {
+        Map<String, String> transactionRequest = new HashMap<>();
+        transactionRequest.put("response", response);
 
-        } catch (SecurityException se) {
-            se.printStackTrace();
-            return false;
-        }
 
+        showProgress(this);
+        ApiInterface apiInterface = ApiClient.getAppServiceClient().create(ApiInterface.class);
+
+        apiInterface.updateTransactionStatus(transactionRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        dissmissProgressDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dissmissProgressDialog();
+                        Toast.makeText(TransactionPopupActivity.this, "" + e, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse loginResponse) {
+                        if (loginResponse != null) {
+                            Toast.makeText(TransactionPopupActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 }
