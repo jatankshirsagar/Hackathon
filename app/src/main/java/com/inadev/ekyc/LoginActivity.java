@@ -1,8 +1,5 @@
 package com.inadev.ekyc;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
@@ -26,24 +23,10 @@ public class LoginActivity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        firebaseCode();
         authenticateUser(new LoginRequest());
     }
 
-    private void firebaseCode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = getString(R.string.google_app_id);
-            String channelName = getString(R.string.gcm_defaultSenderId);
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
-                    channelName, NotificationManager.IMPORTANCE_LOW));
-        }
 
-        Utils.showLog("subscribed");
-
-        authenticateUser(new LoginRequest());
-    }
 
     private void authenticateUser(LoginRequest loginRequest) {
         showProgress(this);
