@@ -4,7 +4,7 @@ package com.inadev.ekyc.api.response;
  * Created by OPTLPTP163 on 9/16/2017.
  */
 
-public class LoginResponse
+public class BaseResponse
 {
     private String status;
 

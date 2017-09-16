@@ -1,6 +1,6 @@
 package com.inadev.ekyc.api;
 
-import com.inadev.ekyc.api.response.LoginResponse;
+import com.inadev.ekyc.api.response.BaseResponse;
 
 import java.util.Map;
 
@@ -17,5 +17,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(APIConstants.PATH_LOGIN)
-    Observable<LoginResponse> authenticateUser(@FieldMap Map<String,String> map);
+    Observable<BaseResponse> authenticateUser(@FieldMap Map<String,String> map);
+
+    @FormUrlEncoded
+    @POST(APIConstants.PATH_TRANSACTION)
+    Observable<BaseResponse> updateTransactionStatus(@FieldMap Map<String,String> map);
 }

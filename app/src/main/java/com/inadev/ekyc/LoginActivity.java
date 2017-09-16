@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.inadev.ekyc.api.ApiClient;
 import com.inadev.ekyc.api.ApiInterface;
-import com.inadev.ekyc.api.response.LoginResponse;
+import com.inadev.ekyc.api.response.BaseResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,10 @@ import butterknife.OnClick;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+/**
+ * Created by OPTLPTP163 on 9/16/2017.
+ */
 
 public class LoginActivity extends BaseActivity {
 
@@ -35,12 +39,15 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+
+
     @OnClick(R.id.loginBtn)
-    void authenticateUser() {
-        if (validation()) {
-            Map<String, String> loginRequest = new HashMap<>();
-            loginRequest.put("username", loginEmailid.getText().toString());
-            loginRequest.put("password", loginPassword.getText().toString());
+     void authenticateUser() {
+        if(validation())
+        {
+            Map<String,String> loginRequest = new HashMap<>();
+            loginRequest.put("username",loginEmailid.getText().toString());
+            loginRequest.put("password",loginPassword.getText().toString());
             loginRequest.put("token", FirebaseInstanceId.getInstance().getToken());
 
 
@@ -50,7 +57,7 @@ public class LoginActivity extends BaseActivity {
             apiInterface.authenticateUser(loginRequest)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<LoginResponse>() {
+                    .subscribe(new Observer<BaseResponse>() {
                         @Override
                         public void onCompleted() {
                             dissmissProgressDialog();
@@ -59,13 +66,14 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onError(Throwable e) {
                             dissmissProgressDialog();
-                            Toast.makeText(LoginActivity.this, "" + e, Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this,""+e,Toast.LENGTH_LONG).show();
                         }
 
                         @Override
-                        public void onNext(LoginResponse loginResponse) {
-                            if (loginResponse != null) {
-                                Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                        public void onNext(BaseResponse loginResponse) {
+                            if(loginResponse!=null)
+                            {
+                                Toast.makeText(LoginActivity.this,loginResponse.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -74,14 +82,18 @@ public class LoginActivity extends BaseActivity {
     }
 
     private boolean validation() {
-        if (loginEmailid.getText().toString().isEmpty() && loginPassword.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter username and password..", Toast.LENGTH_LONG).show();
+        if(loginEmailid.getText().toString().isEmpty() && loginPassword.getText().toString().isEmpty()) {
+            Toast.makeText(this,"Please enter username and password..",Toast.LENGTH_LONG).show();
             return false;
-        } else if (loginEmailid.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter username..", Toast.LENGTH_LONG).show();
+        }
+        else if(loginEmailid.getText().toString().isEmpty())
+        {
+            Toast.makeText(this,"Please enter username..",Toast.LENGTH_LONG).show();
             return false;
-        } else if (loginPassword.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter password..", Toast.LENGTH_LONG).show();
+        }
+        else if(loginPassword.getText().toString().isEmpty())
+        {
+            Toast.makeText(this,"Please enter password..",Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

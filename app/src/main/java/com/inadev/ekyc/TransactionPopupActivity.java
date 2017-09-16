@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -15,13 +14,24 @@ import android.text.Html;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
+
+import com.inadev.ekyc.api.ApiClient;
+import com.inadev.ekyc.api.ApiInterface;
+import com.inadev.ekyc.api.response.BaseResponse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class TransactionPopupActivity extends AppCompatActivity {
+public class TransactionPopupActivity extends BaseActivity {
 
     private StringBuilder bodymessage = new StringBuilder();
 
@@ -52,12 +62,50 @@ public class TransactionPopupActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_yes)
     public void OnYesClicked(View view) {
+        updateTransactionStatus("yes");
+    }
 
+    private void updateTransactionStatus(String response) {
+        Map<String,String> transactionRequest = new HashMap<>();
+        transactionRequest.put("response",response);
+
+
+        showProgress(this);
+        ApiInterface apiInterface = ApiClient.getAppServiceClient().create(ApiInterface.class);
+
+        apiInterface.updateTransactionStatus(transactionRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        dissmissProgressDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dissmissProgressDialog();
+                        Toast.makeText(TransactionPopupActivity.this,""+e,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse loginResponse) {
+                        if(loginResponse!=null)
+                        {
+                            Toast.makeText(TransactionPopupActivity.this,loginResponse.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     @OnClick(R.id.btn_no)
     public void OnNoClicked(View view) {
+        updateTransactionStatus("no");
+    }
 
+    @OnClick(R.id.btn_report)
+    public void OnAlertClicked(View view) {
+        updateTransactionStatus("report");
     }
 
 
