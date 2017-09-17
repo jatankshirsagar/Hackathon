@@ -33,18 +33,16 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Utils.showLog(":::> "+ FirebaseInstanceId.getInstance().getToken());
+        Utils.showLog(":::> " + FirebaseInstanceId.getInstance().getToken());
     }
 
 
-
     @OnClick(R.id.loginBtn)
-     void authenticateUser() {
-        if(validation())
-        {
-            Map<String,String> loginRequest = new HashMap<>();
-            loginRequest.put("username",loginEmailid.getText().toString());
-            loginRequest.put("password",loginPassword.getText().toString());
+    void authenticateUser() {
+        if (validation()) {
+            Map<String, String> loginRequest = new HashMap<>();
+            loginRequest.put("username", loginEmailid.getText().toString());
+            loginRequest.put("password", loginPassword.getText().toString());
             loginRequest.put("token", FirebaseInstanceId.getInstance().getToken());
 
 
@@ -63,14 +61,14 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onError(Throwable e) {
                             dissmissProgressDialog();
-                            Toast.makeText(LoginActivity.this,""+e,Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "" + e, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onNext(BaseResponse loginResponse) {
-                            if(loginResponse!=null)
-                            {
-                                Toast.makeText(LoginActivity.this,loginResponse.getMessage(),Toast.LENGTH_LONG).show();
+                            if (loginResponse != null) {
+                                Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                finish();
                             }
                         }
                     });
@@ -79,18 +77,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     private boolean validation() {
-        if(loginEmailid.getText().toString().isEmpty() && loginPassword.getText().toString().isEmpty()) {
-            Toast.makeText(this,"Please enter username and password..",Toast.LENGTH_LONG).show();
+        if (loginEmailid.getText().toString().isEmpty() && loginPassword.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter username and password..", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else if(loginEmailid.getText().toString().isEmpty())
-        {
-            Toast.makeText(this,"Please enter username..",Toast.LENGTH_LONG).show();
+        } else if (loginEmailid.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter username..", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else if(loginPassword.getText().toString().isEmpty())
-        {
-            Toast.makeText(this,"Please enter password..",Toast.LENGTH_LONG).show();
+        } else if (loginPassword.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter password..", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

@@ -142,6 +142,7 @@ public class TransactionPopupActivity extends BaseActivity implements FingerPrin
                     public void onNext(BaseResponse loginResponse) {
                         if (loginResponse != null) {
                             Toast.makeText(TransactionPopupActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                            finish();
                         }
                     }
                 });
