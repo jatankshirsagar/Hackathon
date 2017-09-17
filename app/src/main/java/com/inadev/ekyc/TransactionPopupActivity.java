@@ -95,7 +95,7 @@ public class TransactionPopupActivity extends BaseActivity implements FingerPrin
             btnNo.setVisibility(View.VISIBLE);
         } else {
             FingerPrintHelper.getInstance().initFingerprintAuthentication(this);
-            bodymessage.append("</br></br>");
+            bodymessage.append("<div>&nbsp;</div>");
             bodymessage.append(getString(R.string.scan_fingerprint));
         }
         FingerPrintHelper.getInstance().setOnFingerPrintListener(this);
@@ -105,12 +105,12 @@ public class TransactionPopupActivity extends BaseActivity implements FingerPrin
 
     @Override
     public void onFingerPrintAuthenticated() {
-        finish();
+        Toast.makeText(this, "Authenticated Successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFingerPrintNotAuthenticated() {
-        Toast.makeText(this, "Finger print Authentication Failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
     }
 
     private void updateTransactionStatus(String response) {
