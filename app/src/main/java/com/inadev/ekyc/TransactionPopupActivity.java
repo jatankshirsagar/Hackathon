@@ -106,6 +106,7 @@ public class TransactionPopupActivity extends BaseActivity implements FingerPrin
 
     @Override
     public void onFingerPrintAuthenticated() {
+        updateTransactionStatus("yes");
         Toast.makeText(this, "Authenticated Successfully", Toast.LENGTH_SHORT).show();
     }
 
