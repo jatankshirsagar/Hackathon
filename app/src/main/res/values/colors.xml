@@ -6,5 +6,7 @@
 
     <color name="textPrimary">#024CAC</color>
     <color name="backgroundColor">#FDFCDF</color>
+    <color name="pbackgroundColor">#FDF0D0</color>
+    <color name="titleColor">#FFDD00</color>
 
 </resources>

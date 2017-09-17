@@ -13,7 +13,7 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#FFDD00"
+        android:background="@color/titleColor"
         android:gravity="center"
         android:text="@string/transaction_alert"
         android:textColor="@color/textPrimary"

@@ -12,5 +12,6 @@
     <!--Login-->
     <string name="email">Email Id</string>
     <string name="passowrd">Password</string>
+    <string name="welcome_to_dcb_bank_mobile_banking">Welcome To Mobile Banking</string>
 
 </resources>
