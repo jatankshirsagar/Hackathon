@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.inadev.ekyc.api.ApiClient;
 import com.inadev.ekyc.api.ApiInterface;
 import com.inadev.ekyc.api.response.BaseResponse;
+import com.inadev.ekyc.fingerprint.FingerPrintHelper;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.inadev.ekyc;
+package com.inadev.ekyc.fingerprint;
 
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
@@ -9,6 +9,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
+
+import com.inadev.ekyc.Utils;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -29,7 +31,6 @@ import static android.content.Context.KEYGUARD_SERVICE;
 
 public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthenticationCallback {
 
-    private KeyguardManager keyguardManager;
     private FingerprintManager fingerprintManager;
     private KeyStore keyStore;
     // Variable used for storing the key in the Android Keystore container
@@ -49,11 +50,12 @@ public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthen
         return instance;
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean checkFinger(Context context) {
         Utils.showLog("check Finger");
         // Keyguard Manager
-        keyguardManager = (KeyguardManager)
+        KeyguardManager keyguardManager = (KeyguardManager)
                 context.getSystemService(KEYGUARD_SERVICE);
 
         // Fingerprint Manager
@@ -62,9 +64,9 @@ public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthen
 
         try {
             // Check if the fingerprint sensor is present
-            if (!fingerprintManager.isHardwareDetected()) {
+            if (fingerprintManager != null && !fingerprintManager.isHardwareDetected()) {
                 return false;
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
+            } else if (fingerprintManager != null && !fingerprintManager.hasEnrolledFingerprints()) {
                 return false;
             } else if (!keyguardManager.isKeyguardSecure()) {
                 return false;
@@ -92,7 +94,7 @@ public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthen
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    protected void generateKey() {
+    private void generateKey() {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
         } catch (Exception e) {
@@ -131,7 +133,7 @@ public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthen
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    public boolean cipherInit() {
+    private boolean cipherInit() {
         try {
             cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
@@ -160,7 +162,7 @@ public class FingerPrintHelper implements FingerprintHandler.OnFingerPrintAuthen
         this.onFingerPrintListener = onFingerPrintListener;
     }
 
-    OnFingerPrintListener onFingerPrintListener;
+    private OnFingerPrintListener onFingerPrintListener;
 
     public interface OnFingerPrintListener {
         void onFingerPrintAuthenticated();

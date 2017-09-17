@@ -1,26 +1,16 @@
 <resources>
     <string name="app_name">EKyc</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_fingerprint">One-touch Sign In</string>
-    <string name="desc_fingerprint">Please place your fingertip on the scanner to verify your identity</string>
-    <string name="note">(Fingerprint sign in makes your app login much faster. Your device should have at least one fingerprint registered in device settings)</string>
-    <string name="title_activity_home">Fingerprint</string>
-    <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
-    <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
     <string name="login_msg">Trying to sign in from another computer?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="report">Click To Report a Illegitimate Transaction</string>
     <string name="transaction_alert">Transaction Alert !</string>
-    <string name="user_name">Username</string>
-    <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
     <string name="scan_fingerprint"><![CDATA[<b><font color=#FF0000></br></br>Use Fingerprint to validate the transaction.</font></b>]]></string>
 
     <!--Login-->
     <string name="email">Email Id</string>
     <string name="passowrd">Password</string>
-    <string name="submit">SUBMIT</string>
-    <string name="back">BACK</string>
 
 </resources>

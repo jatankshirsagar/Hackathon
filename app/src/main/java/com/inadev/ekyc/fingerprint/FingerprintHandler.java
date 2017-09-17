@@ -1,4 +1,4 @@
-package com.inadev.ekyc;
+package com.inadev.ekyc.fingerprint;
 
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
@@ -14,12 +14,12 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
 
     // Constructor
-    public FingerprintHandler(Context mContext) {
+    FingerprintHandler(Context mContext) {
         context = mContext;
     }
 
 
-    public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
+    void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
         CancellationSignal cancellationSignal = new CancellationSignal();
 //        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
 //            return;
@@ -52,7 +52,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     }
 
 
-    public void update(String e, Boolean success) {
+    private void update(String e, Boolean success) {
         if (success) {
             if (onFingerPrintAuthenticationCallback != null) {
                 onFingerPrintAuthenticationCallback.onAuthenticationSucceeded();
@@ -64,11 +64,11 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         }
     }
 
-    public void setOnFingerPrintAuthenticationCallback(OnFingerPrintAuthenticationCallback onFingerPrintAuthenticationCallback) {
+    void setOnFingerPrintAuthenticationCallback(OnFingerPrintAuthenticationCallback onFingerPrintAuthenticationCallback) {
         this.onFingerPrintAuthenticationCallback = onFingerPrintAuthenticationCallback;
     }
 
-    OnFingerPrintAuthenticationCallback onFingerPrintAuthenticationCallback;
+    private OnFingerPrintAuthenticationCallback onFingerPrintAuthenticationCallback;
 
     public interface OnFingerPrintAuthenticationCallback {
         void onAuthenticationFailed();
