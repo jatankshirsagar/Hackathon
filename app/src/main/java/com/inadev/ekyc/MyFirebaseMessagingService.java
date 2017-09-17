@@ -16,6 +16,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Utils.showLog("Data: " + title);
         Utils.showLog("Data: " + body);
         Intent intent = new Intent(new Intent(this, TransactionPopupActivity.class));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("title", title);
         intent.putExtra("body", body);
         startActivity(intent);

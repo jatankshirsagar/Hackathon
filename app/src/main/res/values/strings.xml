@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EKyc</string>
+    <string name="app_name">Mobile\nBanking</string>
     <string name="login_msg">Trying to sign in from another computer?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
