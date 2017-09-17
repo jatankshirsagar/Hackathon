@@ -7,10 +7,18 @@
     android:padding="20dp"
     tools:ignore="Overdraw">
 
+    <ImageView
+        android:id="@+id/login_icon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/splash_icon"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/login_icon"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -31,6 +39,7 @@
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:drawablePadding="8dp"
+            android:text="rajendra"
             android:gravity="center_vertical"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
@@ -52,6 +61,7 @@
             android:background="@android:color/transparent"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
+            android:text="123456"
             android:hint="@string/passowrd"
             android:inputType="textPassword"
             android:padding="10dp"
